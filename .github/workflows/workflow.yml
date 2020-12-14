@@ -1,0 +1,82 @@
+name: Test & deploy a set of serverless functions to AWS Lambda
+
+on: push
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.x]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+      - name: List all files
+        run: ls -al
+      - name: Create frontend bundle zip file
+        run: |
+          zip -rj frontend.zip frontend/
+          zip -sf frontend.zip
+      - name: Create backend bundle zip file
+        run: |
+          zip -rj backend.zip backend/
+          zip -sf backend.zip
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy frontend function to Test environment
+        run: aws lambda update-function-code --function-name test_tesla_cmds_frontend --zip-file fileb://frontend.zip
+      - name: Deploy backend function to Test environment
+        run: aws lambda update-function-code --function-name test_tesla_cmds_backend --zip-file fileb://backend.zip
+      - name: Pause 10 seconds for functions to become available
+        run: sleep 10
+      - name: Make test script executable
+        run: chmod +x tesla_cmds_functions_test.sh
+      - name: Execute test script
+        env:
+          TEST_FRONTEND_FUNCTION_URL: ${{ secrets.TEST_FRONTEND_FUNCTION_URL }}
+          TEST_TESLA_TOKEN: ${{ secrets.TEST_TESLA_TOKEN }}
+          TEST_TESLA_VEHICLE_ID: ${{ secrets.TEST_TESLA_VEHICLE_ID }}
+          TEST_FRONTEND_FUNCTION_INPUT_CMD: ${{ secrets.TEST_FRONTEND_FUNCTION_INPUT_CMD }}
+        run: ./tesla_cmds_functions_test.sh $TEST_FRONTEND_FUNCTION_URL $TEST_TESLA_TOKEN $TEST_TESLA_VEHICLE_ID $TEST_FRONTEND_FUNCTION_INPUT_CMD
+  
+  Deploy:
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+      - name: List all files
+        run: ls -al
+      - name: Create frontend bundle zip file
+        run: |
+          zip -rj frontend.zip frontend/
+          zip -sf frontend.zip
+      - name: Create backend bundle zip file
+        run: |
+          zip -rj backend.zip backend/
+          zip -sf backend.zip
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy frontend function to Prod environment
+        run: aws lambda update-function-code --function-name prod_tesla_cmds_frontend --zip-file fileb://frontend.zip
+      - name: Deploy backend function to Prod environment
+        run: aws lambda update-function-code --function-name prod_tesla_cmds_backend --zip-file fileb://backend.zip
+      - name: Pause 10 seconds for functions to become available
+        run: sleep 10
+      - name: Make test script executable
+        run: chmod +x tesla_cmds_functions_test.sh
+      - name: Execute test script
+        env:
+          PROD_FRONTEND_FUNCTION_URL: ${{ secrets.PROD_FRONTEND_FUNCTION_URL }}
+          TEST_TESLA_TOKEN: ${{ secrets.TEST_TESLA_TOKEN }}
+          TEST_TESLA_VEHICLE_ID: ${{ secrets.TEST_TESLA_VEHICLE_ID }}
+          TEST_FRONTEND_FUNCTION_INPUT_CMD: ${{ secrets.TEST_FRONTEND_FUNCTION_INPUT_CMD }}
+        run: ./tesla_cmds_functions_test.sh $PROD_FRONTEND_FUNCTION_URL $TEST_TESLA_TOKEN $TEST_TESLA_VEHICLE_ID $TEST_FRONTEND_FUNCTION_INPUT_CMD
