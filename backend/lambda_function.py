@@ -676,6 +676,107 @@ def lambda_handler(event, context):
     else:
       print("ERROR: The vehicle failed to receive the close charge port door command")
 
+  # Function that sets the vehicle's charge amps
+  def SetChargingAmps(BASE_URL, VEHICLE_ID, VEHICLE_CHARGING_AMPS):
+    # Variables
+    DATA = {
+      'charging_amps': VEHICLE_CHARGING_AMPS
+    }
+    HEADERS = {
+      'Authorization': "Bearer " + TOKEN,
+      'User-Agent': 'None'
+    }
+    URL = BASE_URL + VEHICLE_ID + "/command/set_charging_amps"
+    HTTP = urllib3.PoolManager()
+    HTTP_REQUEST = HTTP.request(
+      'POST',
+      URL,
+      headers=HEADERS,
+      fields=DATA
+    )
+    HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
+
+    if HTTP_REQUEST_STATUS_CODE == 200:
+      print("The vehicle's charging amps has been set to " + VEHICLE_CHARGING_AMPS + " amps")
+    else:
+      print("ERROR: The vehicle failed to receive the set charging amps command")
+
+  # Function that enables scheduled charging
+  def EnableScheduledCharging(BASE_URL, VEHICLE_ID, SCHEDULED_CHARGING_TIME):
+    # Variables
+    DATA = {
+      'enable': 1,
+      'time': SCHEDULED_CHARGING_TIME
+    }
+    HEADERS = {
+      'Authorization': "Bearer " + TOKEN,
+      'User-Agent': 'None'
+    }
+    URL = BASE_URL + VEHICLE_ID + "/command/set_scheduled_charging"
+    HTTP = urllib3.PoolManager()
+    HTTP_REQUEST = HTTP.request(
+      'POST',
+      URL,
+      headers=HEADERS,
+      fields=DATA
+    )
+    HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
+
+    if HTTP_REQUEST_STATUS_CODE == 200:
+      print("The vehicle has been configured to start charging at " + SCHEDULED_CHARGING_TIME)
+    else:
+      print("ERROR: The vehicle failed to receive the enable scheduled charging command")
+
+  # Function that enables scheduled charging
+  def DisableScheduledCharging(BASE_URL, VEHICLE_ID):
+    # Variables
+    DATA = {
+      'enable': 0
+    }
+    HEADERS = {
+      'Authorization': "Bearer " + TOKEN,
+      'User-Agent': 'None'
+    }
+    URL = BASE_URL + VEHICLE_ID + "/command/set_scheduled_charging"
+    HTTP = urllib3.PoolManager()
+    HTTP_REQUEST = HTTP.request(
+      'POST',
+      URL,
+      headers=HEADERS,
+      fields=DATA
+    )
+    HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
+
+    if HTTP_REQUEST_STATUS_CODE == 200:
+      print("The vehicle has been configured with scheduled charging disabled")
+    else:
+      print("ERROR: The vehicle failed to receive the disable scheduled charging command")
+
+  # Function that disables scheduled charging
+  def DisableScheduledCharging(BASE_URL, VEHICLE_ID):
+    # Variables
+    DATA = {
+      'enable': 'false'
+    }
+    HEADERS = {
+      'Authorization': "Bearer " + TOKEN,
+      'User-Agent': 'None'
+    }
+    URL = BASE_URL + VEHICLE_ID + "/command/set_scheduled_charging"
+    HTTP = urllib3.PoolManager()
+    HTTP_REQUEST = HTTP.request(
+      'POST',
+      URL,
+      headers=HEADERS,
+      fields=DATA
+    )
+    HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
+
+    if HTTP_REQUEST_STATUS_CODE == 200:
+      print("The vehicle has been configured with scheduled charging disabled")
+    else:
+      print("ERROR: The vehicle failed to receive the disable scheduled charging command")
+
   # Function that starts a remote drive session for the vehicle
   def StartRemoteDrive(BASE_URL, VEHICLE_ID, PASSWORD):
     # Variables
@@ -776,6 +877,12 @@ def lambda_handler(event, context):
       OpenChargePortDoor(BASE_URL, VEHICLE_ID)
     elif INPUT_CMD == "close_charge_port_door":
       CloseChargePortDoor(BASE_URL, VEHICLE_ID)
+    elif INPUT_CMD == "set_charging_amps":
+      SetChargingAmps(BASE_URL, VEHICLE_ID, PARAMETER_1)    
+    elif INPUT_CMD == "enable_scheduled_charging":
+      EnableScheduledCharging(BASE_URL, VEHICLE_ID, PARAMETER_1)
+    elif INPUT_CMD == "disable_scheduled_charging":
+      DisableScheduledCharging(BASE_URL, VEHICLE_ID)
     elif INPUT_CMD == "start_remote_drive":
       StartRemoteDrive(BASE_URL, VEHICLE_ID, PARAMETER_1)
     elif INPUT_CMD == "trigger_homelink":

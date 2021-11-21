@@ -24,6 +24,9 @@ Tesla Commands (CMDs) is a set of AWS Lambda Functions that serve as an intellig
 * close_charge_port_door
 * start_charging
 * stop_charging
+* set_charging_amps
+* enable_scheduled_charging
+* disable_scheduled_charging
 * honk_horn
 * flash_lights
 * start_remote_drive
