@@ -212,6 +212,7 @@ def lambda_handler(event, context):
     # Variables
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/flash_lights"
@@ -233,6 +234,7 @@ def lambda_handler(event, context):
     # Variables
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/auto_conditioning_start"
@@ -254,6 +256,7 @@ def lambda_handler(event, context):
     # Variables
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/auto_conditioning_stop"
@@ -277,8 +280,10 @@ def lambda_handler(event, context):
       'driver_temp': VEHICLE_TEMP,
       'passenger_temp': VEHICLE_TEMP
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_temps"
@@ -287,7 +292,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -302,8 +307,10 @@ def lambda_handler(event, context):
     DATA = {
       'on': 1
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_preconditioning_max"
@@ -312,7 +319,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -327,8 +334,10 @@ def lambda_handler(event, context):
     DATA = {
       'on': 0
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_preconditioning_max"
@@ -337,7 +346,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -352,8 +361,10 @@ def lambda_handler(event, context):
       'heater': SEAT_HEATER_POSITION,
       'level': SEAT_HEATER_LEVEL
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/remote_seat_heater_request"
@@ -362,7 +373,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
     
@@ -417,8 +428,10 @@ def lambda_handler(event, context):
     DATA = {
       'on': 1
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_sentry_mode"
@@ -427,7 +440,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -442,8 +455,10 @@ def lambda_handler(event, context):
     DATA = {
       'on': 0
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_sentry_mode"
@@ -452,7 +467,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -469,8 +484,10 @@ def lambda_handler(event, context):
       'lat': 0,
       'lon': 0
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/window_control"
@@ -479,7 +496,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -496,8 +513,10 @@ def lambda_handler(event, context):
       'lat': 0,
       'lon': 0
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/window_control"
@@ -506,7 +525,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -521,8 +540,10 @@ def lambda_handler(event, context):
     DATA = {
       'which_trunk': 'front'
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/actuate_trunk"
@@ -531,7 +552,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -546,8 +567,10 @@ def lambda_handler(event, context):
     DATA = {
       'which_trunk': "rear"
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/actuate_trunk"
@@ -556,7 +579,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -571,8 +594,10 @@ def lambda_handler(event, context):
     DATA = {
       'percent': VEHICLE_CHARGE_LIMIT
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_charge_limit"
@@ -581,7 +606,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -595,6 +620,7 @@ def lambda_handler(event, context):
     # Variables
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/charge_start"
@@ -616,6 +642,7 @@ def lambda_handler(event, context):
     # Variables
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/charge_stop"
@@ -682,8 +709,10 @@ def lambda_handler(event, context):
     DATA = {
       'charging_amps': VEHICLE_CHARGING_AMPS
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_charging_amps"
@@ -692,7 +721,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -708,8 +737,10 @@ def lambda_handler(event, context):
       'enable': 1,
       'time': SCHEDULED_CHARGING_TIME
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_scheduled_charging"
@@ -718,7 +749,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -733,8 +764,10 @@ def lambda_handler(event, context):
     DATA = {
       'enable': 0
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_scheduled_charging"
@@ -743,7 +776,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -758,8 +791,10 @@ def lambda_handler(event, context):
     DATA = {
       'enable': 'false'
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/set_scheduled_charging"
@@ -768,7 +803,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -783,8 +818,10 @@ def lambda_handler(event, context):
     DATA = {
       'password': str(PASSWORD)
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     URL = BASE_URL + VEHICLE_ID + "/command/remote_start_drive"
@@ -793,7 +830,7 @@ def lambda_handler(event, context):
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
@@ -810,19 +847,21 @@ def lambda_handler(event, context):
     VEHICLE_LONGITUDE = str(VEHICLE_DATA[1])
     HEADERS = {
       'Authorization': "Bearer " + TOKEN,
+      'Content-Type': 'application/json',
       'User-Agent': 'None'
     }
     DATA = {
       'lat': VEHICLE_LATITUDE,
       'lon': VEHICLE_LONGITUDE
     }
+    ENCODED_DATA = json.dumps(DATA).encode('utf-8')
     URL = BASE_URL + VEHICLE_ID + "/command/trigger_homelink"
     HTTP = urllib3.PoolManager()
     HTTP_REQUEST = HTTP.request(
       'POST',
       URL,
       headers=HEADERS,
-      fields=DATA
+      body=ENCODED_DATA
     )
     HTTP_REQUEST_STATUS_CODE = HTTP_REQUEST.status
 
