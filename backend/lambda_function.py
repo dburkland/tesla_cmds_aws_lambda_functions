@@ -910,8 +910,6 @@ def lambda_handler(event, context):
       SetChargeLimit(BASE_URL, VEHICLE_ID, PARAMETER_1)
     elif INPUT_CMD == "start_charging":
       StartCharging(BASE_URL, VEHICLE_ID)
-    elif INPUT_CMD == "stop_charging":
-      StopCharging(BASE_URL, VEHICLE_ID)
     elif INPUT_CMD == "open_charge_port_door":
       OpenChargePortDoor(BASE_URL, VEHICLE_ID)
     elif INPUT_CMD == "close_charge_port_door":
@@ -927,6 +925,9 @@ def lambda_handler(event, context):
     elif INPUT_CMD == "trigger_homelink":
       TriggerHomeLink(BASE_URL, VEHICLE_ID)
   # Macro commands
+    elif INPUT_CMD == "stop_charging":
+      StopCharging(BASE_URL, VEHICLE_ID)
+      OpenChargePortDoor(BASE_URL, VEHICLE_ID)
     elif INPUT_CMD == "start_climate_control_normal" or INPUT_CMD == "start_hvac_normal":
       SetTemps(BASE_URL, VEHICLE_ID, PARAMETER_1)
       StartClimateControl(BASE_URL, VEHICLE_ID)
