@@ -1,6 +1,8 @@
 README
 =========
 
+### UPDATE as of 2023-11-26: With Tesla now offering native support for iOS Shortcuts, my shortcuts are considered deprecated and have reached end-of-life (EOL).
+
 ### Introduction
 
 Tesla Commands (CMDs) is a set of AWS Lambda Functions that serve as an intelligent wrapper around Tesla's API. These functions are designed for a set of iOS shortcuts however support any application that can issue REST API calls. 
